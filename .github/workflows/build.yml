@@ -18,12 +18,12 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
     
     - name: build target
-      run: .\project\winexe_winmemdll\release_msvc.bat
+      run: script/build_winmemdll.bat
     
     - name: upload release
       uses: ncipollo/release-action@v1
       if: github.event_name == 'push'
       with:
-        artifacts: "./project/winexe_winmemdll/build/winmemdll32.exe,./project/winexe_winmemdll/build/winmemdll64.exe"
+        artifacts: "build/winmemdll32.exe,build/winmemdll64.exe"
         allowUpdates: "true"
         token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 # MemoryModule  
 
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/yurisizuku/memorymodule?color=green&label=MemoryModule)![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/YuriSizuku/MemoryModule/build_wintools.yml?label=build_wintools)  
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/yurisizuku/win-MemoryModule?color=green&label=MemoryModule)![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/YuriSizuku/win-MemoryModule/build.yml?label=build)  
 
 ☘️ A flexible PE loader, loading module in memory.
 Most of the functions can be inline,  compatible for shellcode.
@@ -22,8 +22,7 @@ Here's a example for using `llvm-mingw`
 
 ```shell
 git clone https://github.com/YuriSizuku/MemoryModule.git --recursive
-cd MemoryModule/project/win_memdll
-make winmemdll_shellcode # only if you want to generate shellcode
+make winmemdll_shellcode CC=x86_64-w64-mingw32-clang # only if you want to generate shellcode
 make winmemdll CC=i686-w64-mingw32-gcc BUILD_TYPE=32d # x86 debug
 ```
 

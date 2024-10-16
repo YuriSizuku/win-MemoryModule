@@ -13,4 +13,4 @@
 .vscode
 __pycache__
 
-project/**/build/*
+build/*

@@ -1,7 +1,5 @@
 # build example, tested in linux 10.0.0-3, gcc 12, wine-9.0
-# make winmemdll_shellcode CC=x86_64-w64-mingw32-gcc BUILD_TYPE=32
-# make winmemdll_shellcode CC=i686-w64-mingw32-clang BUILD_TYPE=32
-# make winmemdll_shellcode CC=x86_64-w64-mingw32-clang BUILD_TYPE=64
+# make winmemdll_shellcode CC=x86_64-w64-mingw32-clang
 # make winmemdll winmemdll_test CC=i686-w64-mingw32-gcc BUILD_TYPE=32d
 # make winmemdll winmemdll_test CC=x86_64-w64-mingw32-gcc BUILD_TYPE=64d
 
@@ -9,7 +7,7 @@
 CC:=gcc # clang (llvm-mingw), gcc (mingw-w64), tcc (x86 stdcall name has problem)
 BUILD_TYPE:=32# 32, 32d, 64, 64d
 BUILD_DIR:=build
-INCS:=-I../../depend/reversetool/src
+INCS:=-Idepend/winreverse/src
 LIBS:=-luser32 -lgdi32 -lpsapi
 CFLAGS:=-fPIC -std=c99 \
 	-fvisibility=hidden \
@@ -58,7 +56,7 @@ winmemdll_test: src/winmemdll_test.c
 
 # only support llvm-mingw (tested 18.1), for building coff format
 # sometimes nested force inline function might cause problems
-winmemdll_shellcode: ../../depend/reversetool/project/windll_winpe/src/libwinpe.c
+winmemdll_shellcode: depend/winreverse/project/windll_winpe/src/libwinpe.c
 	@echo "## $@"
 	# use -mno-sse for not making string as constant, sse makes array assign with ds:
 	$(CC) -c -O3 -m32 -mno-sse $< -o $(BUILD_DIR)/$@32.o \
