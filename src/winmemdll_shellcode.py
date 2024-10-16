@@ -1,7 +1,7 @@
 import sys
 from keystone import *
 
-sys.path.append("../../depend/reversetool/src")
+sys.path.append("depend/winreverse/src")
 import wincoff as shellcode
 
 def gen_oepinit_code32():
