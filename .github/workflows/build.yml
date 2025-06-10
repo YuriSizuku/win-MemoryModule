@@ -8,7 +8,7 @@ permissions:
   
 jobs:
   build_winexe_winmemdll:
-    runs-on: windows-2019
+    runs-on: windows-2025
     steps:
     - name: pull and init
       uses: actions/checkout@v3
@@ -17,6 +17,23 @@ jobs:
     - name: add msbuild to path
       uses: microsoft/setup-msbuild@v1.1
     
+    - name: prepare enviroment
+      run: |
+        Set-Location "C:\Program Files (x86)\Microsoft Visual Studio\Installer\"
+        $InstallPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
+        $WorkLoads = '--add Microsoft.VisualStudio.Component.WinXP'
+        $Arguments = ('/c', "vs_installer.exe", 'modify', '--installPath', "`"$InstallPath`"", $WorkLoads, '--quiet', '--norestart', '--nocache')
+        $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
+        if ($process.ExitCode -eq 0)
+        {
+            Write-Host "components have been successfully added"
+        }
+        else
+        {
+            Write-Host "components were not installed"
+            exit 1
+        }
+
     - name: build target
       run: script/build_winmemdll.bat
     
